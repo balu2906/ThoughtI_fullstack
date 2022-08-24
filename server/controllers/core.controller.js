@@ -34,7 +34,7 @@ exports.addTask = async (req, res) => {
     }
     body.Important = parseInt(body.Important);
     await crudService.insert("tasks", body);
-    successResponse(res, body);
+    successResponse(res, { message: "Added Task SuccesFully." });
   } catch (e) {
     sendError(res, e);
   }
