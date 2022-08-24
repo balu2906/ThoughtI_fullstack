@@ -1,0 +1,185 @@
+<div class="w90 mcen h100 flex aic">
+  <div class="w100">
+    <fieldset>
+      <legend><b>User Tasks</b></legend>
+      <div
+        class="w100"
+        style="border-bottom: 2px solid rgba(86, 84, 84, 0.585)"
+      >
+        <form [formGroup]="taskForm">
+          <div class="flex form_box">
+            <div class="" style="position: relative">
+              <mat-form-field class="" appearance="outline">
+                <mat-label>Task</mat-label>
+                <input
+                  matInput
+                  placeholder="Ex. Pizza"
+                  value=""
+                  formControlName="Task"
+                  (input)="getLength()"
+                  maxlength="200"
+                />
+                <div
+                  class="w100"
+                  style="position: absolute; bottom: -20px; text-align: right"
+                >
+                  {{ taskInputLength }}/200
+                </div>
+              </mat-form-field>
+            </div>
+            <div>
+              <mat-form-field class="" appearance="outline">
+                <mat-label>Expiry_date</mat-label>
+                <input
+                  type="date"
+                  matInput
+                  placeholder="Task Data"
+                  value=""
+                  [min]="toDay"
+                  formControlName="Expiry_date"
+                />
+              </mat-form-field>
+            </div>
+            <div>
+              <mat-form-field appearance="outline">
+                <mat-label>User</mat-label>
+                <mat-select formControlName="userId">
+                  <mat-option
+                    *ngFor="let item of userData"
+                    [value]="item.userId"
+                    >{{ item.userName }}</mat-option
+                  >
+                </mat-select>
+              </mat-form-field>
+            </div>
+            <div>
+              <mat-form-field appearance="outline">
+                <mat-label>Important</mat-label>
+                <mat-select formControlName="Important">
+                  <mat-option value="1">Yes</mat-option>
+                  <mat-option value="0">No</mat-option>
+                </mat-select>
+              </mat-form-field>
+            </div>
+            <div>
+              <button
+                mat-raised-button
+                color="primary"
+                (click)="submitForm()"
+                [disabled]="taskForm.invalid"
+              >
+                Submit
+              </button>
+            </div>
+          </div>
+        </form>
+      </div>
+      <div class="w100">
+        <table
+          mat-table
+          [dataSource]="dataSource"
+          style="display: block; overflow-x: auto; width: 100%"
+        >
+          <ng-container matColumnDef="S.no">
+            <th mat-header-cell *matHeaderCellDef class="mn-wdt-100 pad-10 tc">
+              No.
+            </th>
+            <td mat-cell *matCellDef="let element" class="tc">
+              {{ element.order }}
+            </td>
+          </ng-container>
+
+          <ng-container matColumnDef="Task">
+            <th mat-header-cell *matHeaderCellDef class="mn-wdt-300 pad-10 tc">
+              Task
+            </th>
+            <td mat-cell *matCellDef="let element" class="tc">
+              {{ element.Task }}
+            </td>
+          </ng-container>
+
+          <ng-container matColumnDef="Expiry_at">
+            <th mat-header-cell *matHeaderCellDef class="mn-wdt-200 pad-10 tc">
+              Expiry_Date
+            </th>
+            <td mat-cell *matCellDef="let element" class="tc">
+              {{ element.Expiry_date }}
+            </td>
+          </ng-container>
+
+          <ng-container matColumnDef="User">
+            <th mat-header-cell *matHeaderCellDef class="mn-wdt-200 tc">
+              User
+            </th>
+            <td mat-cell *matCellDef="let element" class="tc">
+              <div style="padding: 10px">
+                <mat-form-field appearance="outline">
+                  <mat-label>Favorite food</mat-label>
+                  <mat-select [value]="element.userId">
+                    <mat-option
+                      *ngFor="let item of userData"
+                      [value]="item.userId"
+                      >{{ item.userName }}</mat-option
+                    >
+                  </mat-select>
+                </mat-form-field>
+              </div>
+            </td>
+          </ng-container>
+          <ng-container matColumnDef="important">
+            <th mat-header-cell *matHeaderCellDef class="mn-wdt-200 tc">
+              important
+            </th>
+            <td mat-cell *matCellDef="let element" class="tc">
+              <i
+                *ngIf="element.Important"
+                style="font-size: 20px"
+                class="fa fa-flag"
+                aria-hidden="true"
+              ></i>
+              <i
+                *ngIf="!element.Important"
+                style="font-size: 20px"
+                class="fa fa-flag-o"
+                aria-hidden="true"
+              ></i>
+            </td>
+          </ng-container>
+          <ng-container matColumnDef="Created_at">
+            <th mat-header-cell *matHeaderCellDef class="mn-wdt-200 tc">
+              Created_at
+            </th>
+            <td mat-cell *matCellDef="let element" class="tc">
+              {{ element.Created_on | date }}
+            </td>
+          </ng-container>
+          <ng-container matColumnDef="actions">
+            <th mat-header-cell *matHeaderCellDef class="mn-wdt-100 pad-5 tc">
+              Action
+            </th>
+            <td mat-cell *matCellDef="let element" class="tc">
+              <i class="fa fa-ban" aria-hidden="true"></i>
+            </td>
+          </ng-container>
+
+          <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+          <tr
+            mat-row
+            class="mat-rows"
+            *matRowDef="let row; columns: displayedColumns"
+          ></tr>
+        </table>
+
+        <div style="width: fit-content">
+          <mat-paginator
+            #taskTablePagination="matPaginator"
+            [pageSize]="5"
+            [length]="pageLength"
+            [pageSizeOptions]="[5, 10]"
+          >
+          </mat-paginator>
+        </div>
+      </div>
+    </fieldset>
+  </div>
+</div>

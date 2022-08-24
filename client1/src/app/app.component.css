@@ -1,0 +1,54 @@
+.mcen {
+    margin: auto;
+}
+
+.w100 {
+    width: 100%;
+}
+
+.w90{
+    width: 90%;
+}
+.w80{
+    width: 80%;
+}
+
+.h100 {
+    height: 100vh;
+}
+
+.b1sc {
+    border: 1px solid black;
+}
+
+.flex {
+    display: flex;
+}
+.aic {
+    align-items: center;
+}
+
+
+.mn-wdt-300{
+    min-width: 300px;
+}
+.mn-wdt-200{
+    min-width: 200px;
+}
+
+.mn-wdt-150{
+    min-width: 150px
+}
+
+.mn-wdt-100{
+    min-width: 100px
+}
+
+.tc{
+    text-align: center;
+}
+
+.form_box {
+    justify-content: space-between;
+    align-items: center;
+}
